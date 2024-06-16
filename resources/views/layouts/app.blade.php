@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Shop</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body {
             background-color: #ffeef5;
@@ -15,6 +14,22 @@
         }
         .navbar-brand, .nav-link {
             color: white !important;
+        }
+        .banner {
+            background-color: #ffc0cb;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        .card {
+            border: none;
+        }
+        .card-title {
+            color: #ff6f91;
+        }
+        .card-img {
+            height: 200px;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -43,34 +58,36 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/forum">Forum</a>
                         </li>
-                        @guest
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('forum.create') }}">Create Forum</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Login</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">Register</a>
                             </li>
-                        @else
-                            <li class="nav-item">
-                                <span class="navbar-text">{{ Auth::user()->name }}</span>
-                            </li>
-                            <li class="nav-item">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button class="nav-link btn btn-link" type="submit">Logout</button>
-                                </form>
-                            </li>
-                        @endguest
+                        @endauth
                     </ul>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- Page Content -->
-    <main>
+    <div class="container">
         @yield('content')
-    </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

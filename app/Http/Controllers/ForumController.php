@@ -2,31 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Forum;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ForumController extends Controller
 {
     public function index(Request $request)
     {
-        $forums = Forum::query();
+        $query = Forum::query();
 
-        if ($request->has('search')) {
-            $forums->where('title', 'like', '%' . $request->search . '%');
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
         }
 
-        if ($request->has('start_date') && $request->has('end_date')) {
-            $forums->whereBetween('created_at', [$request->start_date, $request->end_date]);
+        if ($request->filled('title')) {
+            $query->where('title', 'like', '%' . $request->title . '%');
         }
 
-        if ($request->has('category')) {
-            $forums->where('category', $request->category);
+        if ($request->filled('from_date') && $request->filled('to_date')) {
+            $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
         }
 
-        $forums = $forums->get();
+        $forums = $query->with('user')->get();
 
         return view('forum.index', compact('forums'));
+    }
+
+    public function show($id)
+    {
+        $forum = Forum::with('comments.user')->findOrFail($id);
+        return view('forum.show', compact('forum'));
     }
 
     public function create()
@@ -37,18 +43,19 @@ class ForumController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'category' => 'required|string',
-            'content' => 'required|string',
+            'title' => 'required',
+            'content' => 'required',
+            'category' => 'required',
         ]);
 
-        $forum = new Forum();
-        $forum->title = $request->title;
-        $forum->category = $request->category;
-        $forum->content = $request->content;
-        $forum->user_id = Auth::id();
-        $forum->save();
+        Forum::create([
+            'user_id' => Auth::id(),
+            'title' => $request->title,
+            'content' => $request->content,
+            'category' => $request->category,
+        ]);
 
         return redirect()->route('forum.index')->with('success', 'Forum created successfully');
     }
 }
+
