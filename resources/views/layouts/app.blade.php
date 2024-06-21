@@ -60,9 +60,6 @@
                         </li>
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('forum.create') }}">Create Forum</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Logout
