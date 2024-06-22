@@ -33,7 +33,7 @@
                 <p class="mt-3">Total price: IDR {{ $totalPrice }}</p>
                 <form action="/afterPurchase" method="post">
                     @csrf
-                    <button type="submit" class="btn btn-outline-success">Purchase</button>
+                    <button type="submit" class="btn btn-outline-success">Checkout</button>
                 </form>
             @else
                 <p class="mt-3">No items in cart yet!</p>

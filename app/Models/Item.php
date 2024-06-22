@@ -12,7 +12,7 @@ class Item extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
     public function connectCartDetail () {
-        return $this->hasOne(CartDetail::class, 'item_id', 'id');
+        return $this->hasOne(Cartdetail::class, 'item_id', 'id');
     }
     protected $fillable = ['name', 'category_id', 'detail', 'price', 'photourl'];
     use HasFactory;

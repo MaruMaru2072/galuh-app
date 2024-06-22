@@ -75,6 +75,10 @@
                                     @csrf
                                 </form>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/historyPage">Purchase History</a>
+                            </li>
+                            
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -94,5 +98,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://pay.google.com/gp/p/js/pay.js" async></script>
+    
 </body>
 </html>

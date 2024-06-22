@@ -15,7 +15,6 @@
                 <p class="detailtitle" style="padding-right: 7.5vw;">Price</p>
                 <p class="me-3">IDR {{ $items->price }}</p>
             </div>
-            @if (Auth::check() && Auth::user()->is_admin == true)
             <form action="/cartPage" method="post">
                 @csrf
                 <div class="detailchild ps-4 align-items-center">
@@ -25,7 +24,6 @@
                 </div>
                 <button type="submit" class="btn btn-outline-dark detailchild ms-4 mt-3">Purchase</button>
             </form>
-            @endif
         </div>
     </div>
 </div>
