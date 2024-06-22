@@ -33,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::get('forum/create', [ForumController::class, 'create'])->name('forum.create');
     Route::post('forum', [ForumController::class, 'store'])->name('forum.store');
     Route::post('forum/{forum}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/dashboard', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/dashboard', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/dashboard/password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+
 });
 
 Route::get('forum', [ForumController::class, 'index'])->name('forum.index');

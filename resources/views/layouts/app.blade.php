@@ -58,7 +58,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/forum">Forum</a>
                         </li>
+                        <li class="nav-item">
+                            <span class="navbar-text">|</span>
+                        </li>
                         @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profile.edit') }}">Profile Settings</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
