@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\QuoteController;
+
 
 
 /*
@@ -37,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/dashboard', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/dashboard/password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
     Route::delete('/dashboard', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('quotes', QuoteController::class)->except(['edit', 'update', 'show']);
 });
 
 Route::get('forum', [ForumController::class, 'index'])->name('forum.index');
