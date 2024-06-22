@@ -44,7 +44,11 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login');
+        $cart = new CartHeader();
+        $cart->user_id = $user->id;
+        $cart->save();
+
+        return redirect()->route('login')->with('success', 'Successfully Registered');
     }
 
     public function logout()
