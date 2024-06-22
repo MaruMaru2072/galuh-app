@@ -43,51 +43,72 @@ class ProductController extends Controller
     public function productPage(){
         return view('store.search');
     }
-    public function createproduct (Request $request) {
+    public function createproduct(Request $request)
+    {
         $this->validate($request, [
-            'name'=>'required',
-            'category'=>'required',
-            'detail'=>'required',
-            'price'=>'numeric|required',
-            'filenya'=>'mimes:png,jpeg,jpg|required'
+            'name' => 'required',
+            'category' => 'required',
+            'detail' => 'required',
+            'price' => 'numeric|required',
+            'imageFile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-        $imageFile = $request->file('imageFile');
-        Storage::putFileAs('public/storage/images', $imageFile, $imageFile->getClientOriginalName());
-        $newitem = new Item();
-        $newitem->name = $request->name;
-        $category = Category::find($request->category);
-        $newitem->category_id = $category->id;
-        $newitem->detail = $request->detail;
-        $newitem->price = $request->price;
-        $newitem->photourl = 'public/storage/images'.'/'.$imageFile->getClientOriginalName();
-        $newitem->save();
-        return redirect('/manageProductPage')->with('success', 'Successfully added a new item!');
+
+        if ($request->hasFile('imageFile')) {
+            $imageFile = $request->file('imageFile');
+            $imageName = time() . '_' . $imageFile->getClientOriginalName();
+            $imageFile->move(public_path('imageitems'), $imageName); // move image to 'public/imageitems'
+
+            // Create and save the new item
+            $newitem = new Item();
+            $newitem->name = $request->name;
+            $newitem->category_id = $request->category;
+            $newitem->detail = $request->detail;
+            $newitem->price = $request->price;
+            $newitem->photourl = '/imageitems/' . $imageName; // save the image path
+            $newitem->save();
+
+            return redirect('/manageProductPage')->with('success', 'Successfully added a new item!');
+        } else {
+            return redirect()->back()->with('error', 'Image upload failed.');
+        }
     }
+    
     public function updateproduct ($whichitem) {
         $categories = Category::all();
         $items = Item::find($whichitem);
         return view('store.producteditor', compact('categories', 'items'));
     }
-    public function updatingproduct (Request $request, $idnya) {
+    public function updatingproduct(Request $request, $idnya)
+    {
         $this->validate($request, [
-            'name'=>'required',
-            'category'=>'required',
-            'detail'=>'required',
-            'price'=>'numeric|required',
-            'imageFile'=>'mimes:png,jpeg,jpg|required'
+            'name' => 'required',
+            'category' => 'required',
+            'detail' => 'required',
+            'price' => 'numeric|required',
+            'imageFile' => 'mimes:png,jpeg,jpg|required'
         ]);
-        $photoFile = $request->file('imageFile');
-        Storage::putFileAs('/public/images', $photoFile, $photoFile->getClientOriginalName());
+
         $item = Item::find($idnya);
-        $item->update([
-            'name'=>$request->name,
-            'detail'=>$request->detail,
-            'category_id'=>$request->category,
-            'price'=>$request->price,
-            'photourl'=>'/storage/images'.'/'.$photoFile->getClientOriginalName()
-        ]);
-        return redirect('/manageProductPage')->with('success', 'Successfully updated an item!');
+        if (!$item) {
+            return redirect()->back()->with('error', 'Item not found.');
+        }
+
+        if ($request->hasFile('imageFile')) {
+            $photoFile = $request->file('imageFile');
+            $imageName = time() . '_' . $photoFile->getClientOriginalName();
+            $photoFile->move(public_path('imageitems'), $imageName); // move image to 'public/imageitems'
+            $item->photourl = '/imageitems/' . $imageName; // update the image path
+        }
+
+        $item->name = $request->name;
+        $item->detail = $request->detail;
+        $item->category_id = $request->category;
+        $item->price = $request->price;
+        $item->save();
+
+        return redirect('/manageProductPage')->with('success', 'Successfully updated the item!');
     }
+    
     public function deleteproduct ($whichitem) {
         Item::find($whichitem)->delete();
         return redirect('/manageProductPage');

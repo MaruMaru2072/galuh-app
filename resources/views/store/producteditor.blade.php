@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <form method="post" enctype="multipart/form-data"
-        @if ($items) action = "/updateProduct/{{ $items->id }}" @else action = "/addProductPage" @endif>
+        @if ($items) action="/updateProduct/{{ $items->id }}" @else action="/addProductPage" @endif>
         @csrf
         <div class="d-flex mt-2 ms-5">
             <a href="/manageProductPage">
@@ -16,7 +16,7 @@
                     <input name="name" type="text" class="form-control" aria-describedby="emailHelp"
                         @if ($items) value="{{ $items->name }}" @endif>
                     @error('name')
-                        {{ $message }}
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
@@ -32,7 +32,7 @@
                         @endforeach
                     </select>
                     @error('category')
-                        {{ $message }}
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
@@ -45,7 +45,7 @@
 </textarea>
                     </div>
                     @error('detail')
-                        {{ $message }}
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
@@ -53,18 +53,25 @@
                     <input name="price" class="form-control" id="exampleInputPassword1"
                         @if ($items) value="{{ $items->price }}" @endif>
                     @error('price')
-                        {{ $message }}
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label"><b>Photo</b></label>
                     <input class="form-control" type="file" name="imageFile">
                     @error('imageFile')
-                        The photo of the product is required!
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
+                    @if ($items && $items->photourl)
+                        <div class="mt-2">
+                            <img src="{{ $items->photourl }}" alt="Product Image" style="max-width: 200px;">
+                        </div>
+                    @endif
                 </div>
                 <div class="mb-3 d-flex justify-content-start">
-                    <button class="btn btn-primary" type="submit">Add Product</button>
+                    <button class="btn btn-primary" type="submit">
+                        @if ($items) Update Product @else Add Product @endif
+                    </button>
                 </div>
             </div>
         </div>
