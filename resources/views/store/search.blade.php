@@ -15,7 +15,7 @@
                     @foreach ($q as $item)
                         <a href="/productDetailPage/{{ $item->id }}" class="prodlist">
                             <div class="card">
-                                <img src="storage/images/{{ asset($item->photourl) }}" class="card-img-top" alt="...">
+                                <img src="storage/images/{{ asset($item->photourl) }}" style="max-height:35vh; max-width:15vw;" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <p class="card-text">{{ $item->name }}</p>
                                     <h6 class="card-price">{{ $item->price }}</h6>

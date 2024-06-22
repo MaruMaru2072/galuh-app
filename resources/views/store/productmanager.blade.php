@@ -22,8 +22,8 @@
             <div class="managelist">
                 <div class="d-flex" style="background-color: white;">
                     <div>
-                        <img src="{{asset($item->photourl)}}" class="manageimg" alt="...">
-                    </div>
+                        </div>
+                    <img src="{{asset($item->photourl)}}" style="max-height:35vh; max-width:15vw;" class="manageimg" alt="...">
                     <div class="managetitle ms-4 mt-4">
                         <h4 class="card-text">{{ $item->name }}</h4>
                     </div>

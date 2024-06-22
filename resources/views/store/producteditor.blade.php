@@ -64,7 +64,7 @@
                     @enderror
                     @if ($items && $items->photourl)
                         <div class="mt-2">
-                            <img src="{{ $items->photourl }}" alt="Product Image" style="max-width: 200px;">
+                            <img src="{{ $items->photourl }}" style="max-height:35vh; max-width:15vw;" alt="Product Image">
                         </div>
                     @endif
                 </div>
