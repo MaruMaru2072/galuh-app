@@ -35,11 +35,13 @@
     <div class="mb-4">
         @auth
             <a href="{{ route('forum.create') }}" class="btn btn-success">Create New Forum</a>
+        @else
+            <a href="{{ route('login') }}" class="btn btn-success mb-4">Login</a>
         @endauth
     </div>
     <div class="row">
         @forelse ($forums as $forum)
-            <div class="col-md-4 mb-3">
+            <div class="col-mt-3 mb-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ $forum->title }}</h5>

@@ -50,13 +50,18 @@
                             <a class="nav-link" href="/forum">Forum</a>
                         </li>
                         <li class="nav-item">
-                            <span class="navbar-text">|</span>
+                            <a class="nav-link" href="/cart">
+                                <i class="fa fa-shopping-cart" aria-hidden="true" href="/cart"></i>
+                                 Cart 
+                                 <span class="badge bg-danger">
+                                0
+                                </span>
+                            </a>
                         </li>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Login</a>
                             </li>
-            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">Register</a>
                             </li>

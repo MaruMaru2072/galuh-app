@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +36,20 @@ Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
 Route::get('/forum/create', [ForumController::class, 'create'])->name('forum.create')->middleware('auth');
 Route::post('/forum', [ForumController::class, 'store'])->name('forum.store')->middleware('auth');
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about');
+
+Route::get('/storepage', [StoreController::class, 'index'])->name('store.index');
+Route::get('/storepage/create', [StoreController::class, 'create'])->name('store.create')->middleware('auth');
+Route::post('/storepage', [StoreController::class, 'store'])->name('store.store')->middleware('auth');
+
+Route::get('/cart', [CartController::class, 'index'])->middleware('auth');
+Route::post('/cart', [CartController::class, 'createCart'])->middleware('auth');
+
+Route::get('/itemDetailView/{itemId}',[StoreController::class, 'checkItemDetailView'])->middleware('auth');
+
+// addItemToCart
+// ->name('additem.to.cart')
+// Route::get('/cart', [])
+
+
 
 require __DIR__.'/auth.php';
