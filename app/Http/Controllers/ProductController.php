@@ -52,10 +52,7 @@ class ProductController extends Controller
             'filenya'=>'mimes:png,jpeg,jpg|required'
         ]);
         $imageFile = $request->file('imageFile');
-        Storage::putFile(
-            storage_path('public/storage/images'.'/'.$imageFile->getClientOriginalName()),
-            $imageFile
-        );
+        Storage::putFileAs('public/storage/images', $imageFile, $imageFile->getClientOriginalName());
         $newitem = new Item();
         $newitem->name = $request->name;
         $category = Category::find($request->category);
@@ -77,17 +74,17 @@ class ProductController extends Controller
             'category'=>'required',
             'detail'=>'required',
             'price'=>'numeric|required',
-            'filenya'=>'mimes:png,jpeg,jpg|required'
+            'imageFile'=>'mimes:png,jpeg,jpg|required'
         ]);
-        $filenya = $request->file('filenya');
-        Storage::putFileAs('/public/images', $filenya, $filenya->getClientOriginalName());
+        $photoFile = $request->file('imageFile');
+        Storage::putFileAs('/public/images', $photoFile, $photoFile->getClientOriginalName());
         $item = Item::find($idnya);
         $item->update([
             'name'=>$request->name,
             'detail'=>$request->detail,
             'category_id'=>$request->category,
             'price'=>$request->price,
-            'photourl'=>'/storage/images'.'/'.$filenya->getClientOriginalName()
+            'photourl'=>'/storage/images'.'/'.$photoFile->getClientOriginalName()
         ]);
         return redirect('/manageProductPage')->with('success', 'Successfully updated an item!');
     }

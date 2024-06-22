@@ -59,7 +59,7 @@
                 <div class="mb-3">
                     <label for="formFile" class="form-label"><b>Photo</b></label>
                     <input class="form-control" type="file" name="imageFile">
-                    @error('filenya')
+                    @error('imageFile')
                         The photo of the product is required!
                     @enderror
                 </div>
