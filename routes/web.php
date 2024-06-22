@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/dashboard', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/dashboard/password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
-
+    Route::delete('/dashboard', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::get('forum', [ForumController::class, 'index'])->name('forum.index');
