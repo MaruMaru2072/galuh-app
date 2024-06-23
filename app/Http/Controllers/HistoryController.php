@@ -9,7 +9,7 @@ use App\Models\Historyheader;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class historyController extends Controller
+class HistoryController extends Controller
 {
     //
     public function createHistory () {

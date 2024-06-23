@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/addProductPage', [ProductController::class, 'createproduct']);
     Route::get('/categoryPage/{whichcategory}', [CategoryController::class, 'categorypage']);
     Route::delete('/deleteitem/{whichitem}', [ProductController::class, 'deleteproduct']);
+    Route::post('/process-payment', [PaymentController::class, 'processPayment']);
 });
 
 Route::get('forum', [ForumController::class, 'index'])->name('forum.index');
