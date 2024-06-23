@@ -52,6 +52,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/about-us">About Us</a>
                         </li>
+                        @auth
+                            @if (Auth::user()->is_admin == true)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/manageProductPage">Manage Product</a>
+                                </li>
+                            @endif
+                        @endauth
                         <li class="nav-item">
                             <a class="nav-link" href="/storepage">Storepage</a>
                         </li>
@@ -78,6 +85,13 @@
                                     @csrf
                                 </form>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cartPage">[Cart]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/historyPage">Purchase History</a>
+                            </li>
+                            
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -97,5 +111,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
