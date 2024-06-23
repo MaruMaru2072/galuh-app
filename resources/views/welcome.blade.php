@@ -65,24 +65,39 @@
                             <a class="nav-link" href="/forum">Forum</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/quotes">Quotes</a>
+                        </li>
+                        <li class="nav-item">
                             <span class="navbar-text">|</span>
                         </li>
-                        @guest
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profile.edit') }}">Profile Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cartPage">[Cart]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/historyPage">Purchase History</a>
+                            </li>
+                            
+                        @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">Login</a>
                             </li>
-            
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">Register</a>
                             </li>
-                        @else
-                            <li class="nav-item">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button class="nav-link btn btn-link" type="submit">Logout</button>
-                                </form>
-                            </li>
-                        @endguest
+                        @endauth
                     </ul>
                 </div>
             </nav>
