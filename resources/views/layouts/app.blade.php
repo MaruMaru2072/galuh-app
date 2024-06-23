@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body {
             background-color: #ffeef5;
@@ -14,6 +15,12 @@
         }
         .navbar-brand, .nav-link {
             color: white !important;
+        }
+        .navbar-nav .nav-item {
+            margin-right: 10px;
+        }
+        .navbar-nav .nav-item:last-child {
+            margin-right: 0;
         }
         .banner {
             background-color: #ffc0cb;
