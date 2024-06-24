@@ -33,8 +33,15 @@ return [
 
     'square' => [
         'application_id' => env('SQUARE_APP_ID'),
-        // 'access_token' => env('SQUARE_ACCESS_TOKEN'),
         'location_id' => env('SQUARE_LOCATION_ID'),
+    ],
+
+    'midtrans' => [
+        'serverKey'     => env('MIDTRANS_SERVERKEY'),
+        'clientKey'     => env('MIDTRANS_CLIENTKEY'),
+        'isProduction'  => env('MIDTRANS_IS_PRODUCTION', false),
+        'isSanitized'   => env('MIDTRANS_IS_SANITIZED', true),
+        'is3ds'         => env('MIDTRANS_IS_3DS', true),
     ],
 
 ];

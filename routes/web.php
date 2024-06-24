@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForumController;
@@ -45,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('quotes', QuoteController::class)->except(['edit', 'update', 'show']);
     Route::post('/cartPage', [CartController::class, 'purchaseitem']);
     Route::get('/cartPage', [CartController::class, 'cart']);
+    Route::get('/viewCarts', [CartController::class, 'cart']);
     Route::delete('/cartPage/{whichItem}', [CartController::class, 'deleteitemincart']);
     Route::post('/afterPurchase', [HistoryController::class, 'createHistory']);
     Route::get('/historyPage', [HistoryController::class, 'getHistory']);
@@ -56,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/addProductPage', [ProductController::class, 'createproduct']);
     Route::get('/categoryPage/{whichcategory}', [CategoryController::class, 'categorypage']);
     Route::delete('/deleteitem/{whichitem}', [ProductController::class, 'deleteproduct']);
-    Route::post('/process-payment', [PaymentController::class, 'processPayment']);
+    Route::post('/processPayment', [HistoryController::class, 'checkout']);
 });
 
 Route::get('forum', [ForumController::class, 'index'])->name('forum.index');
