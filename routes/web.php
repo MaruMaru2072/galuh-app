@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cartPage', [CartController::class, 'cart']);
     Route::get('/viewCarts', [CartController::class, 'cart']);
     Route::delete('/cartPage/{whichItem}', [CartController::class, 'deleteitemincart']);
-    Route::post('/afterPurchase', [HistoryController::class, 'createHistory']);
+    Route::get('/afterPurchase', [HistoryController::class, 'createHistory']);
     Route::get('/historyPage', [HistoryController::class, 'getHistory']);
     Route::post('/manageProductPage', [ProductController::class, 'manageproduct']);
     Route::get('/manageProductPage', [ProductController::class, 'manageproduct']);

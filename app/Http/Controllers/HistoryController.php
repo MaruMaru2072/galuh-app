@@ -25,11 +25,10 @@ class HistoryController extends Controller
                 $totalprice += $cd->qty * $cd->connectItem->price;
             }
 
-//            MIDTRANS_CLIENTKEY="SB-Mid-client-8NRJkwsm9QBv_wa-"
             // Set your Merchant Server Key
-            \Midtrans\Config::$serverKey = 'SB-Mid-server-CLL7GIchTq75GTxjN3S6eT9t';
+            \Midtrans\Config::$serverKey = 'Mid-server-JjxGi4UzFQQoUdWByHyTkCLy';
             // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-            \Midtrans\Config::$isProduction = false;
+            \Midtrans\Config::$isProduction = true;
             // Set sanitization on (default)
             \Midtrans\Config::$isSanitized = true;
             // Set 3DS transaction for credit card to true
@@ -115,7 +114,7 @@ class HistoryController extends Controller
             $historydetail->save();
         }
         Cartdetail::where('cartheader_id', '=', Auth::user()->connectCartHeader->id)->delete();
-        return redirect ('/storepage');
+        return redirect ('/historyPage');
     }
     public function getHistory () {
         $q = Historyheader::where('user_id', '=', Auth::user()->id)->orderBy('transactionDate', 'desc')->get();
