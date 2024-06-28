@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Forum;
 use App\Models\Catforum;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ForumController extends Controller
 {
@@ -25,10 +24,10 @@ class ForumController extends Controller
             $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
         }
 
-        $catforums = $query->with('user', 'catforum')->get();
-        $catforums2 = Catforum::all();
+        $forums = $query->with('user', 'catforum')->get();
+        $catforums = Catforum::all();
 
-        return view('forum.index', compact('catforums', 'catforums2'));
+        return view('forum.index', compact('forums', 'catforums'));
     }
 
     public function show($id)
@@ -52,7 +51,7 @@ class ForumController extends Controller
         ]);
 
         Forum::create([
-            'user_id' => Auth::id(),
+            'user_id' => auth()->id(),
             'title' => $request->title,
             'content' => $request->content,
             'catforum_id' => $request->catforum_id,

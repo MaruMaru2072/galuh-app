@@ -43,6 +43,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/about-us">About Us</a>
                         </li>
+                        @auth
+                            @if (Auth::user()->is_admin == true)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/manageProductPage">Manage Product</a>
+                                </li>
+                            @endif
+                        @endauth
                         <li class="nav-item">
                             <a class="nav-link" href="/storepage">Storepage</a>
                         </li>

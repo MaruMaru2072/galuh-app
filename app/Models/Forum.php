@@ -23,6 +23,6 @@ class Forum extends Model
 
     public function catforum()
     {
-        return $this->belongsTo(Catforum::class, 'catforum_id');
+        return $this->belongsTo(Catforum::class);
     }
 }
