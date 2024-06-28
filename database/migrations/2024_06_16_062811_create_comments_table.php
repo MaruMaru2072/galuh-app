@@ -14,9 +14,8 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('forum_id');
             $table->text('content');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('forum_id')->references('id')->on('forums')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('forum_id')->references('id')->on('forums')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -25,5 +24,4 @@ class CreateCommentsTable extends Migration
         Schema::dropIfExists('comments');
     }
 }
-
 

@@ -11,12 +11,12 @@ class CreateForumsTable extends Migration
         Schema::create('forums', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('catforum_id');
             $table->string('title');
             $table->text('content');
-            $table->string('category');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('catforum_id')->references('id')->on('catforums')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -25,4 +25,3 @@ class CreateForumsTable extends Migration
         Schema::dropIfExists('forums');
     }
 }
-

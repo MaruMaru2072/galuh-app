@@ -9,7 +9,7 @@ class Forum extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'title', 'content', 'category'];
+    protected $fillable = ['user_id', 'title', 'content', 'catforum_id'];
 
     public function user()
     {
@@ -20,5 +20,9 @@ class Forum extends Model
     {
         return $this->hasMany(Comment::class);
     }
-}
 
+    public function catforum()
+    {
+        return $this->belongsTo(Catforum::class, 'catforum_id');
+    }
+}

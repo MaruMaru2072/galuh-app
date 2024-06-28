@@ -12,6 +12,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CatforumController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +38,17 @@ Route::middleware('auth')->group(function () {
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
     Route::get('forum/create', [ForumController::class, 'create'])->name('forum.create');
     Route::post('forum', [ForumController::class, 'store'])->name('forum.store');
+    Route::get('/forum/{id}', [ForumController::class, 'show'])->name('forum.show');
     Route::post('forum/{forum}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/catforum', [CatforumController::class, 'index'])->name('catforum.index');
+    Route::get('/catforum/create', [CatforumController::class, 'create'])->name('catforum.create');
+    Route::post('/catforum', [CatforumController::class, 'store'])->name('catforum.store');
+    Route::get('/catforum/{id}/edit', [CatforumController::class, 'edit'])->name('catforum.edit');
+    Route::put('/catforum/{id}', [CatforumController::class, 'update'])->name('catforum.update');
+    Route::delete('/catforum/{id}', [CatforumController::class, 'destroy'])->name('catforum.destroy');
     Route::get('/dashboard', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/dashboard', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/dashboard/password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');

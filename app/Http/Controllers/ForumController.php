@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Forum;
+use App\Models\Catforum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,7 @@ class ForumController extends Controller
         $query = Forum::query();
 
         if ($request->filled('category')) {
-            $query->where('category', $request->category);
+            $query->where('catforum_id', $request->category);
         }
 
         if ($request->filled('title')) {
@@ -24,9 +25,10 @@ class ForumController extends Controller
             $query->whereBetween('created_at', [$request->from_date, $request->to_date]);
         }
 
-        $forums = $query->with('user')->get();
+        $catforums = $query->with('user', 'catforum')->get();
+        $catforums2 = Catforum::all();
 
-        return view('forum.index', compact('forums'));
+        return view('forum.index', compact('catforums', 'catforums2'));
     }
 
     public function show($id)
@@ -37,7 +39,8 @@ class ForumController extends Controller
 
     public function create()
     {
-        return view('forum.create');
+        $catforums = Catforum::all();
+        return view('forum.create', compact('catforums'));
     }
 
     public function store(Request $request)
@@ -45,17 +48,16 @@ class ForumController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'category' => 'required',
+            'catforum_id' => 'required',
         ]);
 
         Forum::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
             'content' => $request->content,
-            'category' => $request->category,
+            'catforum_id' => $request->catforum_id,
         ]);
 
         return redirect()->route('forum.index')->with('success', 'Forum created successfully');
     }
 }
-

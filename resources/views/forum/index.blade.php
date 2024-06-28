@@ -9,10 +9,9 @@
             <input type="text" name="title" class="form-control me-2" placeholder="Search by title" value="{{ request('title') }}">
             <select name="category" class="form-control me-2">
                 <option value="">Select Category</option>
-                <option value="Pet Carer">Pet Carer</option>
-                <option value="Pet Product">Pet Product</option>
-                <option value="Fact About Pet">Fact About Pet</option>
-                <option value="General Discussion">General Discussion</option>
+                @foreach($catforums2 as $catforum)
+                    <option value="{{ $catforum->id }}" {{ old('catforum_id') == $catforum->id ? 'selected' : '' }}>{{ $catforum->name }}</option>
+                @endforeach
             </select>
             <input type="date" name="from_date" class="form-control me-2" value="{{ request('from_date') }}">
             <input type="date" name="to_date" class="form-control me-2" value="{{ request('to_date') }}">
@@ -26,13 +25,13 @@
         @endauth
     </div>
 
-    @foreach ($forums as $forum)
+    @foreach ($catforums as $forum)
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title"><a href="{{ route('forum.show', $forum->id) }}">{{ $forum->title }}</a></h5>
                 <p class="card-text">{{ $forum->content }}</p>
                 <p class="card-text"><small class="text-muted">By {{ $forum->user->name }} on {{ $forum->created_at->format('d M Y') }}</small></p>
-                <p class="card-text"><small class="text-muted">Category: {{ $forum->category }}</small></p>
+                <p class="card-text"><small class="text-muted">Category: {{ $forum->catforum->name }}</small></p>
             </div>
         </div>
     @endforeach
