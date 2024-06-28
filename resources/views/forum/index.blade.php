@@ -9,8 +9,8 @@
             <input type="text" name="title" class="form-control me-2" placeholder="Search by title" value="{{ request('title') }}">
             <select name="category" class="form-control me-2">
                 <option value="">Select Category</option>
-                @foreach($catforums2 as $catforum)
-                    <option value="{{ $catforum->id }}" {{ old('catforum_id') == $catforum->id ? 'selected' : '' }}>{{ $catforum->name }}</option>
+                @foreach($catforums as $catforum)
+                    <option value="{{ $catforum->id }}" {{ request('category') == $catforum->id ? 'selected' : '' }}>{{ $catforum->name }}</option>
                 @endforeach
             </select>
             <input type="date" name="from_date" class="form-control me-2" value="{{ request('from_date') }}">
@@ -19,13 +19,18 @@
         </form>
 
         @auth
-            <a href="{{ route('forum.create') }}" class="btn btn-success">Create Forum</a>
+            <div>
+                <a href="{{ route('forum.create') }}" class="btn btn-success">Create Forum</a>
+                @if(auth()->user()->is_admin)
+                    <a href="{{ route('catforum.create') }}" class="btn btn-secondary">Add Category</a>
+                @endif
+            </div>
         @else
             <a href="{{ route('login') }}" class="btn btn-success">Create Forum</a>
         @endauth
     </div>
 
-    @foreach ($catforums as $forum)
+    @foreach ($forums as $forum)
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title"><a href="{{ route('forum.show', $forum->id) }}">{{ $forum->title }}</a></h5>
