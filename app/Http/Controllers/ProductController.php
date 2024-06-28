@@ -24,7 +24,7 @@ class ProductController extends Controller
         return view('store.productmanager')->with(['items'=>$q]);
     }
     public function addproduct () {
-        $categories = Category::all();
+        $categories = Productcategory::all();
         $items = null;
         return view('store.producteditor', compact('categories', 'items'));
     }
@@ -75,7 +75,7 @@ class ProductController extends Controller
     }
 
     public function updateproduct ($whichitem) {
-        $categories = Category::all();
+        $categories = Productcategory::all();
         $items = Item::find($whichitem);
         return view('store.producteditor', compact('categories', 'items'));
     }

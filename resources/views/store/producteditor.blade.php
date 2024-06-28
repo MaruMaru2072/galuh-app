@@ -57,7 +57,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label"><b>Photo</b></label>
-                    <input class="form-control" type="file" @if($items) value="{{ $items->photourl }}" @endif>
+                    <input class="form-control" type="file" name="imageFile" @if($items)value="{{asset($items->photourl) }}@endif">
                     @error('imageFile')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
