@@ -1,30 +1,25 @@
 @extends('layouts.app')
 @section('content')
-<div class="body mt-2 ms-5 d-flex justify-content-center align-items-center" style="height: 91vh">
-    <div class="detailparent p-3">
-        <div class=" d-flex align-items-center">
-            <img src="{{asset($items->photourl)}}" class="" alt="...">
-        </div>
-        <div class=" mt-3 detaildesc">
-            <h4>{{ $items->name }}</h4>
-            <div class="detailchild ps-4">
-                <p class="detailtitle" style="padding-right: 7.5vw">Detail</p>
-                <p class="me-3 desc">{{ $items->detail }}</p>
-            </div>
-            <div class="detailchild ps-4">
-                <p class="detailtitle" style="padding-right: 7.5vw;">Price</p>
-                <p class="me-3">IDR {{ $items->price }}</p>
-            </div>
-            <form action="/cartPage" method="post">
-                @csrf
-                <div class="detailchild ps-4 align-items-center">
-                    <p class="detailtitle m-0" style="padding-right: 7.5vw;"> Qty</p>
-                    <input name="quantity" type="number" class="form-control" id="inputqty">
-                    <input name="itemid" value="{{ $items->id }}" type="hidden">
+    <div class="body mt-2 ms-5 d-flex justify-content-center align-items-center" style="height: 91vh">
+        <div class="detailparent p-3">
+
+            <div class="card d-flex align-items-left" style="width: 30vw;">
+                <img src="{{asset($items->photourl)}}"
+                     class="card-img-top img-thumbnail object-fit-cover border rounded" alt="Item Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $items->name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Rp. {{ $items->price }}</h6>
+                    <p class="card-text">{{ $items->detail }}</p>
+                    <form action="/cartPage" method="post">
+                        @csrf
+                        <p class="detailtitle"> Qty</p>
+                        <input name="quantity" type="number" class="form-control" id="inputqty">
+                        <input name="itemid" value="{{ $items->id }}" type="hidden">
+                        <button type="submit" class="btn btn-outline-dark detailchild mt-3">Purchase</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-outline-dark detailchild ms-4 mt-3">Purchase</button>
-            </form>
+            </div>
+
         </div>
     </div>
-</div>
 @endsection

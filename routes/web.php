@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForumController;
@@ -58,6 +57,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/addProductPage', [ProductController::class, 'createproduct']);
     Route::get('/categoryPage/{whichcategory}', [CategoryController::class, 'categorypage']);
     Route::delete('/deleteitem/{whichitem}', [ProductController::class, 'deleteproduct']);
+    Route::get('/manageCategory',[CategoryController::class, 'managecategory']);
+    Route::post('/updateCategory/{whichcategory}',[CategoryController::class, 'updatecategory']);
+    Route::delete('/deleteCategory/{whichcategory}',[CategoryController::class, 'deletecategory']);
+    Route::post('/createCategory',[CategoryController::class, 'createcategory']);
     Route::post('/processPayment', [HistoryController::class, 'checkout']);
 });
 

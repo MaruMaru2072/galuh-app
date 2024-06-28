@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Productcategory;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +12,7 @@ class ProductController extends Controller
     //
     public function navigateStore() {
         $q = Item::all();
-        $q2 = Category::all();
+        $q2 = Productcategory::all();
         return view('store.index')->with(['items'=>$q, 'categories'=>$q2]);
     }
     public function manageproduct (Request $request) {
@@ -65,6 +65,7 @@ class ProductController extends Controller
             $newitem->detail = $request->detail;
             $newitem->price = $request->price;
             $newitem->photourl = '/imageitems/' . $imageName; // save the image path
+            $newitem->is_visible = true;
             $newitem->save();
 
             return redirect('/manageProductPage')->with('success', 'Successfully added a new item!');
@@ -72,7 +73,7 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'Image upload failed.');
         }
     }
-    
+
     public function updateproduct ($whichitem) {
         $categories = Category::all();
         $items = Item::find($whichitem);
@@ -108,9 +109,17 @@ class ProductController extends Controller
 
         return redirect('/manageProductPage')->with('success', 'Successfully updated the item!');
     }
-    
+
     public function deleteproduct ($whichitem) {
         Item::find($whichitem)->delete();
         return redirect('/manageProductPage');
     }
+
+    public function toggleProduct($whichitem) {
+        $currentItem = Item::find($whichitem);
+        $currentItem->is_visible = !$currentItem->is_visible;
+        $currentItem->save();
+        return redirect('/manageProductPage');
+    }
+
 }
