@@ -18,7 +18,8 @@ class CreateItemsTable extends Migration
             $table->string('detail');
             $table->string('photourl');
             $table->integer('price');
-            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('productcategories')->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('is_visible');
         });
     }
 
